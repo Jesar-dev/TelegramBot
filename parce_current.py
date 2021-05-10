@@ -5,6 +5,12 @@ API = "bbc64ccde0250d64248213a494d3ad7c"
 
 
 def parce_current(coordinates):
+    """
+    coordinates: координаты города или улицы (list[широта, долгота])
+    Функция передаёт координаты на сайт openweathermap и парсит информацию
+    о погоде в данный момент.
+    Возвращает строку с данными о погоде в данный момент.
+    """
     weather = requests.get("https://api.openweathermap.org/data/2.5/onecall?lat={0}&lon={1}\
 &exclude=daily&appid={2}&units=metric&lang=ru".format(coordinates[0], coordinates[1], API))
     weather_json = weather.json()
@@ -16,10 +22,10 @@ def parce_current(coordinates):
     description = weather_json['current']['weather'][0]['description']
     wind_speed = weather_json['current']['wind_speed']
     result_weather = "Температура на улице: {0}\n\
-    Чувствуется как: {1}\n\
-    Давление воздуха: {2}\n\
-    Облачность: {3}%\n\
-    Влажность: {4}%\n\
-    Скорость ветра: {5}м/c\n\
-    Краткое описание погоды: {6}".format(temp, feels, pressure, clouds, humidity, wind_speed, description)
+Чувствуется как: {1}\n\
+Давление воздуха: {2}\n\
+Облачность: {3}%\n\
+Влажность: {4}%\n\
+Скорость ветра: {5}м/c\n\
+Краткое описание погоды: {6}".format(temp, feels, pressure, clouds, humidity, wind_speed, description)
     return result_weather

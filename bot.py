@@ -19,6 +19,7 @@ def get_text_messages(message):
             /alerts\n\
             /daily_weather\n\
             /hourly_weather")
+    # Проверка сообщений пользователя
     elif message.text == "/coordinates":
         msg = bot.reply_to(message, "Укажите город")
         bot.register_next_step_handler(msg, process_coordinates_step)
@@ -34,6 +35,9 @@ def get_text_messages(message):
     elif message.text == "/hourly_weather":
         msg = bot.reply_to(message, "Укажите город")
         bot.register_next_step_handler(msg, process_hourly_step)
+    else:
+        msg = bot.reply_to(message, "Напишите пожалуйста команду /help, \
+чтобы узнать список команд")
 
 
 def process_coordinates_step(message):

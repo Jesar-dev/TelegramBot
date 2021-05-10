@@ -5,6 +5,12 @@ API = "bbc64ccde0250d64248213a494d3ad7c"
 
 
 def parce_alerts(coordinates):
+    """
+    coordinates: координаты города или улицы (list[широта, долгота])
+    Функция передаёт координаты на сайт openweathermap и парсит информацию
+    о штормовых предупреждениях.
+    Возвращает строку с данными о штормовых предупреждениях (если они есть).
+    """
     check_alerts = False
     weather = requests.get("https://api.openweathermap.org/data/2.5/onecall?lat={0}\
 &lon={1}&exclude=daily&appid={2}&units=metric&lang=ru".format(coordinates[0], coordinates[1], API))
