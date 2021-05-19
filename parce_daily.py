@@ -1,7 +1,5 @@
 import requests
-
-
-API = "bbc64ccde0250d64248213a494d3ad7c"
+import os
 
 
 def parce_daily(coordinates):
@@ -12,7 +10,8 @@ def parce_daily(coordinates):
     Возвращает строку с данными о погоде на 7 дней.
     """
     weather = requests.get("https://api.openweathermap.org/data/2.5/onecall?lat={0}\
-&lon={1}&appid={2}&units=metric&lang=ru".format(coordinates[0], coordinates[1], API))
+&lon={1}&appid={2}&units=metric&lang=ru".format(coordinates[0], coordinates[1],
+                                                os.environ.get('API')))
     weather_json = weather.json()
     result_weather = ""
     count = 0

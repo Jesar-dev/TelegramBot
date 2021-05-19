@@ -1,6 +1,9 @@
 import requests
 
 
+SITE_URL = "http://search.maps.sputnik.ru/search/addr?q="
+
+
 def parse_coordinates(town):
     """
     town: город или адрес в формате str
@@ -8,7 +11,7 @@ def parse_coordinates(town):
     и парсит координаты города в формате list[широта, долгота]
     Возвращаемое значение: list[широта, долгота]
     """
-    r = requests.get("http://search.maps.sputnik.ru/search/addr?q={0}".format(town))
+    r = requests.get(SITE_URL + town)
     get_json = r.json()
     coordinates = get_json['result']['address'][0]['features'][0]['geometry']['geometries'][0]['coordinates']
     lat = coordinates[1]
