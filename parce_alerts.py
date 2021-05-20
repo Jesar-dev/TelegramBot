@@ -1,5 +1,9 @@
-import requests
 import os
+import requests
+
+
+SITE_URL = "https://api.openweathermap.org/data/2.5/onecall?lat={0}\
+&lon={1}&appid={2}&units=metric&lang=ru"
 
 
 def parce_alerts(coordinates):
@@ -10,9 +14,8 @@ def parce_alerts(coordinates):
     Возвращает строку с данными о штормовых предупреждениях (если они есть).
     """
     check_alerts = False
-    weather = requests.get("https://api.openweathermap.org/data/2.5/onecall?lat={0}\
-&lon={1}&exclude=daily&appid={2}&units=metric&lang=ru".format(coordinates[0], coordinates[1],
-                                                              os.environ.get('API')))
+    weather = requests.get(SITE_URL.format(coordinates[0], coordinates[1],
+                                           os.environ.get('API')))
     weather_json = weather.json()
     try:
         alerts = weather_json['alerts']

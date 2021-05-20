@@ -9,10 +9,7 @@ def check_database(town):
     Возвращает True если есть и False в ином случае
     """
     with shelve.open('cities.db') as db:
-        if town in db.keys():
-            return True
-        else:
-            return False
+        return town in db.keys()
 
 
 def add_to_database(town, coordinates):

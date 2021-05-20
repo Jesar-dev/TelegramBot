@@ -1,7 +1,7 @@
 import unittest
 from coordinates import parse_coordinates
-from parce_daily import parce_daily
 from parce_current import parce_current
+from parce_daily import parce_daily
 
 
 class TestCoordinates(unittest.TestCase):
