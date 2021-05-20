@@ -10,6 +10,17 @@ import database
 bot = telebot.TeleBot("1746360933:AAFY12l5eQ1mnlYHLYd9gU8c-8tVRebwrbM")
 
 
+def get_coordinates(message):
+    answer_town = message.text
+    try:
+        coordinates = parse_coordinates(answer_town)
+        database.add_to_database(answer_town, coordinates)
+        return coordinates
+    except Exception:
+        bot.send_message(message.from_user.id, "Пожалуйста напишите верный город!")
+        return None
+
+
 @bot.message_handler(content_types=['text'])
 def get_text_messages(message):
     if message.text == "/help":
@@ -45,10 +56,10 @@ def process_coordinates_step(message):
     if (database.check_database(answer_town)):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
-        coordinates = parse_coordinates(answer_town)
-        database.add_to_database(answer_town, coordinates)
-    bot.send_message(message.from_user.id, "Координаты: \
-    {0}".format(coordinates))
+        coordinates = get_coordinates(message)
+    if coordinates != None:
+        bot.send_message(message.from_user.id, "Координаты: \
+{0}".format(coordinates))
 
 
 def process_current_step(message):
@@ -56,10 +67,10 @@ def process_current_step(message):
     if (database.check_database(answer_town)):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
-        coordinates = parse_coordinates(answer_town)
-        database.add_to_database(answer_town, coordinates)
-    result = parce_current(coordinates)
-    bot.send_message(message.from_user.id, result)
+        coordinates = get_coordinates(message)
+    if coordinates != None:
+        result = parce_current(coordinates)
+        bot.send_message(message.from_user.id, result)
 
 
 def process_alerts_step(message):
@@ -67,10 +78,10 @@ def process_alerts_step(message):
     if (database.check_database(answer_town)):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
-        coordinates = parse_coordinates(answer_town)
-        database.add_to_database(answer_town, coordinates)
-    result = parce_alerts(coordinates)
-    bot.send_message(message.from_user.id, result)
+        coordinates = get_coordinates(message)
+    if coordinates != None:
+        result = parce_alerts(coordinates)
+        bot.send_message(message.from_user.id, result)
 
 
 def process_daily_step(message):
@@ -78,10 +89,10 @@ def process_daily_step(message):
     if (database.check_database(answer_town)):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
-        coordinates = parse_coordinates(answer_town)
-        database.add_to_database(answer_town, coordinates)
-    result = parce_daily(coordinates)
-    bot.send_message(message.from_user.id, result)
+        coordinates = get_coordinates(message)
+    if coordinates != None:
+        result = parce_daily(coordinates)
+        bot.send_message(message.from_user.id, result)
 
 
 def process_hourly_step(message):
@@ -89,10 +100,10 @@ def process_hourly_step(message):
     if (database.check_database(answer_town)):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
-        coordinates = parse_coordinates(answer_town)
-        database.add_to_database(answer_town, coordinates)
-    result = parce_hourly(coordinates)
-    bot.send_message(message.from_user.id, result)
+        coordinates = get_coordinates(message)
+    if coordinates != None:
+        result = parce_hourly(coordinates)
+        bot.send_message(message.from_user.id, result)
 
 
 bot.polling(none_stop=True, interval=0)
