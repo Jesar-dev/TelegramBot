@@ -57,7 +57,7 @@ def process_coordinates_step(message):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
         coordinates = get_coordinates(message)
-    if coordinates != None:
+    if coordinates is not None:
         bot.send_message(message.from_user.id, "Координаты: \
 {0}".format(coordinates))
 
@@ -68,7 +68,7 @@ def process_current_step(message):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
         coordinates = get_coordinates(message)
-    if coordinates != None:
+    if coordinates is not None:
         result = parce_current(coordinates)
         bot.send_message(message.from_user.id, result)
 
@@ -79,7 +79,7 @@ def process_alerts_step(message):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
         coordinates = get_coordinates(message)
-    if coordinates != None:
+    if coordinates is not None:
         result = parce_alerts(coordinates)
         bot.send_message(message.from_user.id, result)
 
@@ -90,7 +90,7 @@ def process_daily_step(message):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
         coordinates = get_coordinates(message)
-    if coordinates != None:
+    if coordinates is not None:
         result = parce_daily(coordinates)
         bot.send_message(message.from_user.id, result)
 
@@ -101,7 +101,7 @@ def process_hourly_step(message):
         coordinates = database.get_coordinates_from_database(answer_town)
     else:
         coordinates = get_coordinates(message)
-    if coordinates != None:
+    if coordinates is not None:
         result = parce_hourly(coordinates)
         bot.send_message(message.from_user.id, result)
 
